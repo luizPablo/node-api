@@ -12,7 +12,7 @@
 		- `sudo docker pull mongo`
     
 	- Create a container with MongoDB:
-		- `sudo docker run --name mongodb -p 27017:27027 -d mongo`
+		- `sudo docker run --name mongodb -p 27017:27017 -d mongo`
     
 	- When you restart or shutdown your computer, you need start the container again, just run the following command
 		- `sudo docker start mongodb`
