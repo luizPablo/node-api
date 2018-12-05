@@ -14,7 +14,10 @@ export const resolvers = {
         async users(root, { filter, page }) {
             const usernames = filter.replace(/@/g,'').split(',');
 
-            const users = await User.paginate({ login: {$in: usernames}}, { page, limit: 10, populate: [['following', '-password'], ['followers', '-password']]});
+            const users = await User.paginate(
+                { login: {$in: usernames} }, 
+                { page, limit: 10, populate: [['following', '-password'], ['followers', '-password']] }
+            );
 
             users.docs.forEach(element => {
                 element.password = '';
@@ -38,7 +41,10 @@ export const resolvers = {
 
             const regex = new RegExp(hashtags_regex, 'i');
 
-            const posts = await Post.paginate({ author: { $in: ids }, text: regex}, { page, limit: 10, sort: {date : -1}, populate: ['author', 'likes'] });
+            const posts = await Post.paginate(
+                { author: { $in: ids }, text: regex }, 
+                { page, limit: 10, sort: {date : -1}, populate: ['author', 'likes'] }
+            );
 
             return posts;
         },
@@ -48,7 +54,10 @@ export const resolvers = {
         },
 
         async postsByUser(root, { _id, page = 1 }) {
-            const posts = await Post.paginate({ author: _id }, { populate: ['author', 'likes'], page, limit: 10, sort: { date: -1 } });
+            const posts = await Post.paginate(
+                { author: _id }, 
+                { populate: ['author', 'likes'], page, limit: 10, sort: { date: -1 } }
+            );
             return posts;
         },
 
@@ -57,7 +66,10 @@ export const resolvers = {
             const ids = user.following;
             ids.push(root.id);
 
-            const posts = await Post.paginate({ author: { $in: ids } }, { populate: ['author', 'likes'], page, limit: 10, sort: { date: -1} });
+            const posts = await Post.paginate(
+                { author: { $in: ids } }, 
+                { populate: ['author', 'likes'], page, limit: 10, sort: { date: -1} }
+            );
 
             return posts;
         },
@@ -65,7 +77,10 @@ export const resolvers = {
         async filteredPosts(root, { filter, page }) {
             const regex = new RegExp('.*' + filter + '.*', 'i');
 
-            const posts = await Post.paginate({text: regex}, {page, limit: 10, sort: {date: -1}, populate: ['author', 'likes']});
+            const posts = await Post.paginate(
+                {text: regex}, 
+                { page, limit: 10, sort: {date: -1}, populate: ['author', 'likes'] }
+            );
 
             return posts;
         },
@@ -74,7 +89,10 @@ export const resolvers = {
             const hashtags = filter.split(',').join('|');
             const regex = new RegExp(hashtags, 'i');
 
-            const posts = await Post.paginate({text: regex}, {page, limit: 10, sort: {date: -1}, populate: ['author', 'likes']});
+            const posts = await Post.paginate( 
+                {text: regex}, 
+                {page, limit: 10, sort: {date: -1}, populate: ['author', 'likes'] }
+            );
 
             return posts;
         },
