@@ -27,7 +27,7 @@
 
 ![enter image description here](https://i.postimg.cc/jj1d5QwD/Screenshot-from-2018-12-04-23-34-48.png)
 	 
-- Now, your API is running, and you can use the [react-app] and all their functionalities.
+- Now, your API is running, and you can use the [react-app](https://github.com/luizPablo/react-app) and all their functionalities.
 
 ## Functionalities (Routes)
 - Register
